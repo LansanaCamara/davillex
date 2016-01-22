@@ -79,6 +79,17 @@ hr.star-primary:after {
     margin: 0 auto;
 }
 
+.profile {
+    width: 256px;
+    height: 256px;
+    max-width: 256px;
+    max-height: 256px;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    border-radius: 100%;
+    object-fit: cover;
+}
+
 header {
     text-align: center;
     color: #fff;
@@ -125,7 +136,7 @@ header .intro-text .skills {
 
 @media(min-width:768px) {
     .navbar-fixed-top {
-        padding: 25px 0;
+        padding: 10px 0;
         -webkit-transition: padding .3s;
         -moz-transition: padding .3s;
         transition: padding .3s;

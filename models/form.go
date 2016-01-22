@@ -20,24 +20,24 @@ func (this *Form) Validate() bool {
 	re := regexp.MustCompile(".+@.+\\..+")
 	matched := re.Match([]byte(this.Email))
 	if matched == false {
-		this.Errors["Email"] = "Please enter a valid email address."
+		this.Errors["Email"] = "Veuillez entrer une adresse email valide."
 	}
 
 	if strings.TrimSpace(this.Name) == "" {
-		this.Errors["Name"] = "Please enter your name."
+		this.Errors["Name"] = "Veuillez entrer votre nom dans les champs vierges."
 	}
 
 	if strings.TrimSpace(this.Phone) == "" {
-		this.Errors["Phone"] = "Please enter your phone number."
+		this.Errors["Phone"] = "Veuillez entrer votre numéro de téléphone."
 	}
 
 	if strings.TrimSpace(this.Message) == "" {
-		this.Errors["Message"] = "Please enter a message."
+		this.Errors["Message"] = "Veuillez entrer un message."
 	}
 
 	validated := len(this.Errors) == 0
 	if validated {
-		this.Thanks = "Thanks for your request! Your email has been sent."
+		this.Thanks = "Merci pour votre demande! Je vais vous contacter bientôt."
 	}
 
 	return validated
