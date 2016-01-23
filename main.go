@@ -6,9 +6,10 @@ import (
 	"net/http"
 )
 
-func init() {
+func main() {
 	staticFileHandler()
 	http.HandleFunc("/", controllers.Index)
+	http.ListenAndServe(":80", nil)
 }
 
 func staticFileHandler() {

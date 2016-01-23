@@ -52,7 +52,7 @@ func RenderView(w http.ResponseWriter, filename string, data interface{}) {
 //
 // Returns an error in the case of the mail not being sent,
 // or nil if no error occurred.
-func SendMail(body string, r *http.Request) error {
+func SendMail(w http.ResponseWriter, r *http.Request, body string) error {
 	email1 := os.Getenv("EMAIL_ONE")
 	email2 := os.Getenv("EMAIL_TWO")
 
