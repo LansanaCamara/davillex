@@ -2,10 +2,16 @@ package main
 
 import (
 	"github.com/lansanacamara/davillex/controllers"
+
 	"net/http"
 )
 
-func main() {
+func init() {
+	staticFileHandler()
+	http.HandleFunc("/", controllers.Index)
+}
+
+func staticFileHandler() {
 	cssHandler := http.FileServer(http.Dir("./public/css/"))
 	jsHandler := http.FileServer(http.Dir("./public/js/"))
 	imgHandler := http.FileServer(http.Dir("./public/img/"))
@@ -15,6 +21,4 @@ func main() {
 	http.Handle("/js/", http.StripPrefix("/js/", jsHandler))
 	http.Handle("/img/", http.StripPrefix("/img/", imgHandler))
 	http.Handle("/font-awesome/", http.StripPrefix("/font-awesome/", fontHandler))
-
-	http.HandleFunc("/", controllers.Index)
 }
