@@ -35,7 +35,7 @@ func doPost(w http.ResponseWriter, r *http.Request) {
 	if form.Validate() {
 		body := fmt.Sprintf(config.CONTACT_EMAIL, form.Name, form.Email, form.Phone, form.Message)
 
-		if err := util.SendMail(w, r, body); err != nil {
+		if err := util.SendMail(body); err != nil {
 			form.HandleErr(config.MAIL_NOT_SENT_ERR)
 		} else {
 			form.Thanks = config.THANK_YOU

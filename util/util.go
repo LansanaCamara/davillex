@@ -7,6 +7,7 @@ import (
 	"os"
 	"regexp"
 	"strings"
+	"net/smtp"
 
 	"google.golang.org/appengine"
 	"google.golang.org/appengine/mail"
@@ -52,20 +53,25 @@ func RenderView(w http.ResponseWriter, filename string, data interface{}) {
 //
 // Returns an error in the case of the mail not being sent,
 // or nil if no error occurred.
-func SendMail(w http.ResponseWriter, r *http.Request, body string) error {
-	email1 := os.Getenv("EMAIL_ONE")
+func SendMail(body string) error {
+	email := os.Getenv("EMAIL_USERNAME")
+	password := os.Getenv("EMAIL_PASSWORD")
 	email2 := os.Getenv("EMAIL_TWO")
 
-	ctx := appengine.NewContext(r)
+	auth := smtp.PlainAuth(
+		"",
+		email,
+		password,
+		"smtp.gmail.com",
+	)
 
-	msg := &mail.Message{
-		Sender:  "Davillex.com Contact Form <noreply@davillex.com>",
-		To:      []string{email1, email2},
-		Subject: "New Message from Davillex.com",
-		HTMLBody:    body,
-	}
-
-	err := mail.Send(ctx, msg)
+	err := smtp.SendMail(
+		"smtp.gmail.com:587",
+		auth,
+		"Davillex.com Contact Form <noreply@davillex.com>",
+		[]string{email, email2},
+		[]byte(body),
+	)
 
 	return err
 }
