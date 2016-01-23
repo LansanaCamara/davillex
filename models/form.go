@@ -1,8 +1,9 @@
 package models
 
 import (
-	"regexp"
-	"strings"
+	"../config"
+	"../util"
+
 )
 
 type Form struct {
@@ -11,34 +12,33 @@ type Form struct {
 	Phone   string
 	Message string
 	Thanks  string
-	Errors  map[string]string
+	ErrorHandler
 }
 
 func (this *Form) Validate() bool {
 	this.Errors = make(map[string]string)
 
-	re := regexp.MustCompile(".+@.+\\..+")
-	matched := re.Match([]byte(this.Email))
-	if matched == false {
-		this.Errors["Email"] = "Veuillez entrer une adresse email valide."
+	matched := util.MatchRegexp(".+@.+\\..+", this.Email)
+
+	if !util.IsEmpty(this.Email) {
+		if matched == false {
+			this.Errors["Email"] = config.EMAIL_INVALID
+		}
+	} else {
+		this.Errors["Email"] = config.EMAIL_EMPTY
 	}
 
-	if strings.TrimSpace(this.Name) == "" {
-		this.Errors["Name"] = "Veuillez entrer votre nom dans les champs vierges."
+	if util.IsEmpty(this.Name) {
+		this.Errors["Name"] = config.NAME_EMPTY
 	}
 
-	if strings.TrimSpace(this.Phone) == "" {
-		this.Errors["Phone"] = "Veuillez entrer votre numéro de téléphone."
+	if util.IsEmpty(this.Phone) {
+		this.Errors["Phone"] = config.PHONE_EMPTY
 	}
 
-	if strings.TrimSpace(this.Message) == "" {
-		this.Errors["Message"] = "Veuillez entrer un message."
+	if util.IsEmpty(this.Message) {
+		this.Errors["Message"] = config.MESSAGE_EMPTY
 	}
 
-	validated := len(this.Errors) == 0
-	if validated {
-		this.Thanks = "Merci pour votre demande! Je vais vous contacter bientôt."
-	}
-
-	return validated
+	return len(this.Errors) == 0
 }

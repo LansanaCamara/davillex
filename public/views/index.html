@@ -154,13 +154,17 @@
                     <div class="col-lg-8 col-lg-offset-2">
                         <form action="/#contact" method="POST" novalidate>
                             {{ with .Thanks }}
+                            <p class="help-block text-success">{{ . }}</p>
+                            {{ end }}
+
+                            {{ with .Errors.Error }}
                             <p class="help-block text-danger">{{ . }}</p>
                             {{ end }}
 
                             <div class="row control-group">
                                 <div class="form-group col-xs-12 floating-label-form-group controls">
                                     <label for="name">Name</label>
-                                    <input type="text" class="form-control" placeholder="Nom" id="name"
+                                    <input type="text" name="name" class="form-control {{ with .Errors.Name }} error-field {{ end }}" placeholder="Nom" id="name"
                                            value="{{ .Name }}">
                                     {{ with .Errors.Name }}
                                     <p class="help-block text-danger">{{ . }}</p>
@@ -171,7 +175,7 @@
                             <div class="row control-group">
                                 <div class="form-group col-xs-12 floating-label-form-group controls">
                                     <label for="email">Email Address</label>
-                                    <input type="email" class="form-control" placeholder="Email" id="email"
+                                    <input type="email" name="email" class="form-control {{ with .Errors.Email }} error-field {{ end }}" placeholder="Email" id="email"
                                            value="{{ .Email }}">
                                     {{ with .Errors.Email }}
                                     <p class="help-block text-danger">{{ . }}</p>
@@ -182,7 +186,7 @@
                             <div class="row control-group">
                                 <div class="form-group col-xs-12 floating-label-form-group controls">
                                     <label for="phone">Phone Number</label>
-                                    <input type="tel" class="form-control" placeholder="Numero de telephone" id="phone"
+                                    <input type="tel" name="phone" class="form-control {{ with .Errors.Phone }} error-field {{ end }}" placeholder="Numero de telephone" id="phone"
                                            value="{{ .Phone }}">
                                     {{ with .Errors.Phone }}
                                     <p class="help-block text-danger">{{ . }}</p>
@@ -193,17 +197,18 @@
                             <div class="row control-group">
                                 <div class="form-group col-xs-12 floating-label-form-group controls">
                                     <label for="message">Message</label>
-                                    <textarea rows="5" class="form-control" placeholder="Message" id="message">{{ .Message }}</textarea>
+                                    <textarea rows="5" name="message" class="form-control {{ with .Errors.Message }} error-field {{ end }}" placeholder="Message" id="message">{{ .Message }}</textarea>
                                     {{ with .Errors.Message }}
                                     <p class="help-block text-danger">{{ . }}</p>
                                     {{ end }}
                                 </div>
                             </div>
+
                             <br>
 
                             <div class="row">
                                 <div class="form-group col-xs-12">
-                                    <button type="submit" class="btn btn-success btn-lg">Envoyer le message!</button>
+                                    <input type="submit" class="btn btn-success btn-lg" value="Envoyer le message!">
                                 </div>
                             </div>
                         </form>
@@ -233,7 +238,7 @@
                         </div>
                         <div class="footer-col col-md-4">
                             <h3>About Davillex</h3>
-                            <p>Freelance is a free to use, open source Bootstrap theme created by <a href="http://startbootstrap.com">Start Bootstrap</a>.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis corporis culpa, ipsa quae quam temporibus!</a>.</p>
                         </div>
                     </div>
                 </div>

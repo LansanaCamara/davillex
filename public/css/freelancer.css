@@ -295,7 +295,9 @@ section.success a.active {
     position: relative;
     margin-bottom: 0;
     padding-bottom: .5em;
-    border-bottom: 1px solid #eee;
+}
+.floating-label-form-group:last-child {
+    margin-bottom: 15px;
 }
 
 .floating-label-form-group input,
@@ -308,6 +310,10 @@ section.success a.active {
     background: 0 0;
     box-shadow: none !important;
     resize: none;
+}
+
+.error-field {
+    border-color: #e74c3c!important;
 }
 
 .floating-label-form-group label {

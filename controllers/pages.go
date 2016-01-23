@@ -1,8 +1,9 @@
 package controllers
 
 import (
-	"github.com/lansanacamara/davillex/models"
-	"github.com/lansanacamara/davillex/util"
+	"../config"
+	"../models"
+	"../util"
 	"fmt"
 	"net/http"
 )
@@ -19,7 +20,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 }
 
 func doGet(w http.ResponseWriter, r *http.Request) {
-	util.HTML(w, "index", nil)
+	util.RenderView(w, "index", nil)
 }
 
 func doPost(w http.ResponseWriter, r *http.Request) {
@@ -27,16 +28,17 @@ func doPost(w http.ResponseWriter, r *http.Request) {
 		Name:    r.FormValue("name"),
 		Email:   r.FormValue("email"),
 		Phone:   r.FormValue("phone"),
-		Message: r.FormValue("message"),
-	}
+		Message: r.FormValue("message")}
 
 	if form.Validate() {
-		from := form.Email
-		message := fmt.Sprintf(util.CONTACT_EMAIL, form.Name, form.Email, form.Email, form.Phone, form.Phone, form.Message)
+		message := fmt.Sprintf(config.CONTACT_EMAIL, form.Name, form.Email, form.Phone, form.Message)
 
-		err := util.SendMail(from, message)
-		util.CheckErrHttp(w, err)
+		if err := util.SendMail(form.Email, message); err != nil {
+			form.HandleErr(config.MAIL_NOT_SENT_ERR)
+		} else {
+			form.Thanks = config.THANK_YOU
+		}
 	}
 
-	util.HTML(w, "index", form)
+	util.RenderView(w, "index", form)
 }

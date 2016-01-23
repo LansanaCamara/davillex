@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/lansanacamara/davillex/controllers"
+	"./controllers"
 	"net/http"
 )
 
@@ -17,5 +17,4 @@ func main() {
 	http.Handle("/font-awesome/", http.StripPrefix("/font-awesome/", fontHandler))
 
 	http.HandleFunc("/", controllers.Index)
-	http.ListenAndServe(":80", nil)
 }
