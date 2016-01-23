@@ -9,9 +9,6 @@ import (
 	"strings"
 	"net/smtp"
 
-	"google.golang.org/appengine"
-	"google.golang.org/appengine/mail"
-
 	_ "github.com/joho/godotenv/autoload"
 )
 
