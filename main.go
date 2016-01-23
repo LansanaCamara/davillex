@@ -1,15 +1,14 @@
 package main
 
 import (
-	"github.com/lansanacamara/davillex/controllers"
-
 	"net/http"
+
+	"github.com/lansanacamara/davillex/controllers"
 )
 
-func main() {
+func init() {
 	staticFileHandler()
 	http.HandleFunc("/", controllers.Index)
-	http.ListenAndServe(":80", nil)
 }
 
 func staticFileHandler() {

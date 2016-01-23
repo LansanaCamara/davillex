@@ -57,13 +57,12 @@ func SendMail(w http.ResponseWriter, r *http.Request, body string) error {
 	email2 := os.Getenv("EMAIL_TWO")
 
 	ctx := appengine.NewContext(r)
-	sender := r.FormValue("email")
 
 	msg := &mail.Message{
-		Sender:  sender,
+		Sender:  "Davillex.com Contact Form <noreply@davillex.com>",
 		To:      []string{email1, email2},
 		Subject: "New Message from Davillex.com",
-		Body:    body,
+		HTMLBody:    body,
 	}
 
 	err := mail.Send(ctx, msg)
