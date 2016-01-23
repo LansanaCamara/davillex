@@ -1,15 +1,17 @@
 package util
 
 import (
-	"github.com/go-gomail/gomail"
-	_ "github.com/joho/godotenv/autoload"
-
 	"fmt"
 	"html/template"
 	"net/http"
 	"os"
 	"regexp"
 	"strings"
+
+	"google.golang.org/appengine"
+	"google.golang.org/appengine/mail"
+
+	_ "github.com/joho/godotenv/autoload"
 )
 
 // Regular expression helper function. Takes an expression
@@ -50,20 +52,21 @@ func RenderView(w http.ResponseWriter, filename string, data interface{}) {
 //
 // Returns an error in the case of the mail not being sent,
 // or nil if no error occurred.
-func SendMail(from string, message string) error {
-	email := os.Getenv("EMAIL_USERNAME")
-	password := os.Getenv("EMAIL_PASSWORD")
-	anotherEmail := os.Getenv("ANOTHER_EMAIL_USERNAME")
+func SendMail(body string, r *http.Request) error {
+	email1 := os.Getenv("EMAIL_ONE")
+	email2 := os.Getenv("EMAIL_TWO")
 
-	m := gomail.NewMessage()
-	m.SetHeader("From", from)
-	m.SetHeader("To", email, anotherEmail)
-	m.SetHeader("Subject", "New Message from Davillex.com!")
-	m.SetBody("text/html", message)
+	ctx := appengine.NewContext(r)
+	sender := r.FormValue("email")
 
-	d := gomail.NewPlainDialer("smtp.gmail.com", 587, email, password)
+	msg := &mail.Message{
+		Sender:  sender,
+		To:      []string{email1, email2},
+		Subject: "New Message from Davillex.com",
+		Body:    body,
+	}
 
-	err := d.DialAndSend(m)
+	err := mail.Send(ctx, msg)
 
 	return err
 }

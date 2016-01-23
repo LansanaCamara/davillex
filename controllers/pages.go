@@ -1,12 +1,12 @@
 package controllers
 
 import (
+	"fmt"
+	"net/http"
+
 	"github.com/lansanacamara/davillex/config"
 	"github.com/lansanacamara/davillex/models"
 	"github.com/lansanacamara/davillex/util"
-
-	"fmt"
-	"net/http"
 )
 
 func Index(w http.ResponseWriter, r *http.Request) {
@@ -29,12 +29,13 @@ func doPost(w http.ResponseWriter, r *http.Request) {
 		Name:    r.FormValue("name"),
 		Email:   r.FormValue("email"),
 		Phone:   r.FormValue("phone"),
-		Message: r.FormValue("message")}
+		Message: r.FormValue("message"),
+	}
 
 	if form.Validate() {
-		message := fmt.Sprintf(config.CONTACT_EMAIL, form.Name, form.Email, form.Phone, form.Message)
+		body := fmt.Sprintf(config.CONTACT_EMAIL, form.Name, form.Email, form.Phone, form.Message)
 
-		if err := util.SendMail(form.Email, message); err != nil {
+		if err := util.SendMail(body, r); err != nil {
 			form.HandleErr(config.MAIL_NOT_SENT_ERR)
 		} else {
 			form.Thanks = config.THANK_YOU
