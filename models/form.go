@@ -1,9 +1,8 @@
 package models
 
 import (
-	"../config"
-	"../util"
-
+	"github.com/lansanacamara/davillex/util"
+	"github.com/lansanacamara/davillex/config"
 )
 
 type Form struct {

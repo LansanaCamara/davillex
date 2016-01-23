@@ -1,7 +1,7 @@
 package main
 
 import (
-	"./controllers"
+	"github.com/lansanacamara/davillex/controllers"
 	"net/http"
 )
 
