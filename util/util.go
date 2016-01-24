@@ -48,7 +48,7 @@ func SendMail(body string) error {
 
 	m := gomail.NewMessage()
 
-	m.SetHeader("From", "noreply@davillex.com")
+	m.SetHeader("From", e.EmailUsername)
 	m.SetHeader("To", e.EmailUsername, e.EmailTwo)
 	m.SetHeader("Subject", "New Message from Davillex.com!")
 	m.SetBody("text/html", body)
