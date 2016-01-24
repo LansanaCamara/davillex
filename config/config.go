@@ -10,7 +10,7 @@ const (
 	THANK_YOU     string = "Merci pour votre demande! Je vais vous contacter bientôt."
 
 	// Errors
-	MAIL_NOT_SENT_ERR string = "Could not connect to mail server. Please try again soon.!"
+	MAIL_NOT_SENT_ERR string = "Could not connect to mailing server. Please try again soon!"
 
 	// Emails
 	CONTACT_EMAIL string = `
