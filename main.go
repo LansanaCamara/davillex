@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/lansanacamara/davillex/controllers"
+	"github.com/lansanacamara/davillex/models"
 )
 
 func init() {
@@ -17,5 +18,5 @@ func init() {
 	http.Handle("/img/", http.StripPrefix("/img/", imgHandler))
 	http.Handle("/font-awesome/", http.StripPrefix("/font-awesome/", fontHandler))
 
-	http.HandleFunc("/", controllers.Index)
+	http.Handle("/", models.Handle(controllers.Index))
 }

@@ -2,6 +2,7 @@ package util
 
 import (
 	"fmt"
+	"html"
 	"html/template"
 	"net/http"
 	"regexp"
@@ -11,6 +12,10 @@ import (
 	"github.com/go-gomail/gomail"
 	_ "github.com/joho/godotenv/autoload"
 )
+
+func FetchAndClean(r *http.Request, formName string) string {
+	return html.EscapeString(r.Form.Get(formName))
+}
 
 func MatchRegexp(expression string, str string) bool {
 	re := regexp.MustCompile(expression)

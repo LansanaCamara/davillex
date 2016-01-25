@@ -157,16 +157,16 @@
                             <p class="help-block text-success">{{ . }}</p>
                             {{ end }}
 
-                            {{ with .Errors.Error }}
+                            {{ with .UIError }}
                             <p class="help-block text-danger">{{ . }}</p>
                             {{ end }}
 
                             <div class="row control-group">
                                 <div class="form-group col-xs-12 floating-label-form-group controls">
                                     <label for="name">Name</label>
-                                    <input type="text" name="name" class="form-control {{ with .Errors.Name }} error-field {{ end }}" placeholder="Nom" id="name"
+                                    <input type="text" name="name" class="form-control {{ with .Validation.Name }} error-field {{ end }}" placeholder="Nom" id="name"
                                            value="{{ .Name }}">
-                                    {{ with .Errors.Name }}
+                                    {{ with .Validation.Name }}
                                     <p class="help-block text-danger">{{ . }}</p>
                                     {{ end }}
                                 </div>
@@ -175,9 +175,9 @@
                             <div class="row control-group">
                                 <div class="form-group col-xs-12 floating-label-form-group controls">
                                     <label for="email">Email Address</label>
-                                    <input type="email" name="email" class="form-control {{ with .Errors.Email }} error-field {{ end }}" placeholder="Email" id="email"
+                                    <input type="email" name="email" class="form-control {{ with .Validation.Email }} error-field {{ end }}" placeholder="Email" id="email"
                                            value="{{ .Email }}">
-                                    {{ with .Errors.Email }}
+                                    {{ with .Validation.Email }}
                                     <p class="help-block text-danger">{{ . }}</p>
                                     {{ end }}
                                 </div>
@@ -186,9 +186,9 @@
                             <div class="row control-group">
                                 <div class="form-group col-xs-12 floating-label-form-group controls">
                                     <label for="phone">Phone Number</label>
-                                    <input type="tel" name="phone" class="form-control {{ with .Errors.Phone }} error-field {{ end }}" placeholder="Numero de telephone" id="phone"
+                                    <input type="tel" name="phone" class="form-control {{ with .Validation.Phone }} error-field {{ end }}" placeholder="Numero de telephone" id="phone"
                                            value="{{ .Phone }}">
-                                    {{ with .Errors.Phone }}
+                                    {{ with .Validation.Phone }}
                                     <p class="help-block text-danger">{{ . }}</p>
                                     {{ end }}
                                 </div>
@@ -197,8 +197,8 @@
                             <div class="row control-group">
                                 <div class="form-group col-xs-12 floating-label-form-group controls">
                                     <label for="message">Message</label>
-                                    <textarea rows="5" name="message" class="form-control {{ with .Errors.Message }} error-field {{ end }}" placeholder="Message" id="message">{{ .Message }}</textarea>
-                                    {{ with .Errors.Message }}
+                                    <textarea rows="5" name="message" class="form-control {{ with .Validation.Message }} error-field {{ end }}" placeholder="Message" id="message">{{ .Message }}</textarea>
+                                    {{ with .Validation.Message }}
                                     <p class="help-block text-danger">{{ . }}</p>
                                     {{ end }}
                                 </div>

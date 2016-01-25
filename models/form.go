@@ -6,38 +6,43 @@ import (
 )
 
 type Form struct {
-	Name    string
-	Email   string
-	Phone   string
-	Message string
-	Thanks  string
-	ErrorHandler
+	Name       string
+	Email      string
+	Phone      string
+	Message    string
+	Thanks     string
+	Validation map[string]string
+	Error
 }
 
 func (this *Form) Validate() bool {
-	this.Errors = make(map[string]string)
+	this.Validation = make(map[string]string)
 
 	matched := util.MatchRegexp(".+@.+\\..+", this.Email)
 
 	if !util.IsEmpty(this.Email) {
 		if matched == false {
-			this.Errors["Email"] = config.EMAIL_INVALID
+			this.Validation["Email"] = config.EMAIL_INVALID
 		}
 	} else {
-		this.Errors["Email"] = config.EMAIL_EMPTY
+		this.Validation["Email"] = config.EMAIL_EMPTY
 	}
 
 	if util.IsEmpty(this.Name) {
-		this.Errors["Name"] = config.NAME_EMPTY
+		this.Validation["Name"] = config.NAME_EMPTY
 	}
 
 	if util.IsEmpty(this.Phone) {
-		this.Errors["Phone"] = config.PHONE_EMPTY
+		this.Validation["Phone"] = config.PHONE_EMPTY
 	}
 
 	if util.IsEmpty(this.Message) {
-		this.Errors["Message"] = config.MESSAGE_EMPTY
+		this.Validation["Message"] = config.MESSAGE_EMPTY
 	}
 
-	return len(this.Errors) == 0
+	return len(this.Validation) == 0
+}
+
+func (this *Form) NewUIError(message string) {
+	this.UIError = message
 }
